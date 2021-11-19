@@ -29,15 +29,18 @@ void Initialize(void)
 
     gBall.position = { WINCX / 2, WINCY / 2 };
     gBall.scale = { 100, 100 };
+    gBall.speed = 250;
+
+    gBall.player = &gPlayer;
 }
 
 void Update(double deltaTime)
 {
-    gPlayer.Update(deltaTime);
-    gBall.Update(deltaTime);
-
     gPlayer.UpdateRect();
     gBall.UpdateRect();
+
+    gPlayer.Update(deltaTime);
+    gBall.Update(deltaTime);
 }
 
 void Render(void)

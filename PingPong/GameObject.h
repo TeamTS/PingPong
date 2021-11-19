@@ -1,16 +1,30 @@
 #pragma once
 #include "framework.h"
 
-struct Position
+struct Vector2
 {
     float x = 0;
     float y = 0;
+    Vector2 operator+=(Vector2 vec)
+    {
+        x += vec.x;
+        y += vec.y;
+        return *this;
+    }
+
+    Vector2 operator*(double d)
+    {
+        Vector2 result = *this;
+        result.x *= d;
+        result.y *= d;
+        return result;
+    }
 };
 
 class GameObject
 {
 public:
-    Position position;
+    Vector2 position;
     SIZE scale{};
     double speed{ 300 };
     RECT rect{};
