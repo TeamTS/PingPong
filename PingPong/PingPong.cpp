@@ -1,4 +1,5 @@
 ﻿#include "framework.h"
+#include "Player.h"
 #include "PingPong.h"
 
 #define MAX_LOADSTRING 100
@@ -17,30 +18,6 @@ BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
-struct Position
-{
-    float x = 0;
-    float y = 0;
-};
-
-struct Player
-{
-    Position position;
-    SIZE scale{};
-    double speed{150};
-    RECT rect{};
-
-    void UpdateRect()
-    {
-        rect = RECT 
-        { 
-            static_cast<LONG>(position.x - (scale.cx * 0.5f)),
-            static_cast<LONG>(position.y - (scale.cy * 0.5f)),
-            static_cast<LONG>(position.x + (scale.cx * 0.5f)), 
-            static_cast<LONG>(position.y + (scale.cy * 0.5f))
-        };
-    }
-};
 Player gPlayer;
 
 void Initialize(void)
@@ -51,23 +28,7 @@ void Initialize(void)
 
 void Update(double deltaTime)
 {
-    if (GetAsyncKeyState(VK_LEFT) & 0x8000)
-    {
-        gPlayer.position.x -= gPlayer.speed * deltaTime;
-    }
-    if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
-    {
-        gPlayer.position.x += gPlayer.speed * deltaTime;
-    }
-    if (GetAsyncKeyState(VK_UP) & 0x8000)
-    {
-        gPlayer.position.y -= gPlayer.speed * deltaTime;
-    }
-    if (GetAsyncKeyState(VK_DOWN) & 0x8000)
-    {
-        gPlayer.position.y += gPlayer.speed * deltaTime;
-    }
-
+    gPlayer.Update(deltaTime);
     gPlayer.UpdateRect();
 }
 
