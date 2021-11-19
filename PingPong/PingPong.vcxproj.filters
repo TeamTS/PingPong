@@ -33,6 +33,10 @@
     <ClInclude Include="NetworkManager.h">
       <Filter>Net</Filter>
     </ClInclude>
+    <ClInclude Include="Session.h">
+      <Filter>Net</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PingPong.cpp">
@@ -41,6 +45,10 @@
     <ClCompile Include="NetworkManager.cpp">
       <Filter>Net</Filter>
     </ClCompile>
+    <ClCompile Include="Session.cpp">
+      <Filter>Net</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PingPong.rc">
