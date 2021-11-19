@@ -10,10 +10,9 @@ struct Position
 class GameObject
 {
 public:
-
     Position position;
     SIZE scale{};
-    double speed{ 150 };
+    double speed{ 300 };
     RECT rect{};
 
     void UpdateRect()

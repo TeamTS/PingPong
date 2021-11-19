@@ -1,5 +1,6 @@
 ﻿#include "framework.h"
 #include "Player.h"
+#include "Ball.h"
 #include "PingPong.h"
 
 #define MAX_LOADSTRING 100
@@ -19,25 +20,37 @@ LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
 Player gPlayer;
+Ball gBall;
 
 void Initialize(void)
 {
-    gPlayer.position = { 50,50 };
-    gPlayer.scale = { 100,100 };
+    gPlayer.position = { 60, WINCY / 2 };
+    gPlayer.scale = { 80, 180 };
+
+    gBall.position = { WINCX / 2, WINCY / 2 };
+    gBall.scale = { 100, 100 };
 }
 
 void Update(double deltaTime)
 {
     gPlayer.Update(deltaTime);
+    gBall.Update(deltaTime);
+
     gPlayer.UpdateRect();
+    gBall.UpdateRect();
 }
 
 void Render(void)
 {
+    RECT clientRect;
+    GetClientRect(gHWND, &clientRect);
+    Rectangle(gHDC, clientRect.left, clientRect.top, clientRect.right, clientRect.bottom);
+
+
     RECT& rt = gPlayer.rect;
-    RECT r;
-    GetClientRect(gHWND, &r);
-    Rectangle(gHDC, r.left, r.top, r.right, r.bottom);
+    Rectangle(gHDC, rt.left, rt.top, rt.right, rt.bottom);
+
+    rt = gBall.rect;
     Ellipse(gHDC, rt.left, rt.top, rt.right, rt.bottom);
 }
 
