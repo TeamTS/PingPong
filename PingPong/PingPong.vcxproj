@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="NetworkManager.h" />
+    <ClInclude Include="PacketBase.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PingPong.h" />
     <ClInclude Include="Resource.h" />

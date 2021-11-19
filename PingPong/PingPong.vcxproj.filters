@@ -16,6 +16,9 @@
     <Filter Include="Net">
       <UniqueIdentifier>{a185b530-07cb-46b4-a4a9-2fe1e746a407}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Net\Packet">
+      <UniqueIdentifier>{efe34928-27a6-4350-88ef-9f531c2255d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -37,6 +40,9 @@
       <Filter>Net</Filter>
     </ClInclude>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PacketBase.h">
+      <Filter>Net\Packet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PingPong.cpp">
