@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Ball.h"
 
 void Ball::CalculateThetaAndSetDirection(Vector2 position)

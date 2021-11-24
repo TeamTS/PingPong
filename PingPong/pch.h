@@ -20,6 +20,9 @@
 #include <cassert>
 #include <functional>
 #include <array>
+#include <assert.h>
 
 #pragma comment(lib, "ws2_32.lib")
 #pragma comment(lib, "mswsock.lib")
+
+#include "PacketBase.h"
