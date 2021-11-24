@@ -178,12 +178,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pch.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="PingPong.cpp" />
-<<<<<<< HEAD
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Session.cpp" />
-=======
     <ClCompile Include="Player.cpp" />
->>>>>>> f3436844c962bde3ac4c27f1a477d4c50fea60d1
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PingPong.rc" />

@@ -1,11 +1,7 @@
-<<<<<<< HEAD
 ﻿#include "pch.h"
 #include "framework.h"
-=======
-﻿#include "framework.h"
 #include "Player.h"
 #include "Ball.h"
->>>>>>> f3436844c962bde3ac4c27f1a477d4c50fea60d1
 #include "PingPong.h"
 
 #define MAX_LOADSTRING 100
