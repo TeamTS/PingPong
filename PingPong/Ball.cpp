@@ -22,6 +22,33 @@ void Ball::CalculateThetaAndSetDirection(Vector2 position)
 	direction.Normalize();
 }
 
+void Ball::WallClip(void)
+{
+	// TODO : 1280을 WINCX로 감싸야 합니다.
+	if (position.x > 1280 - (scale.cx / 2))
+	{
+		direction.x *= -1;
+	}
+
+	// TODO : 1280을 WINCX로 감싸야 합니다.
+	if (position.x < 0 + (scale.cx / 2))
+	{
+		direction.x *= -1;
+	}
+
+	// TODO : 1280을 WINCX로 감싸야 합니다.
+	if (position.y > 720 - (scale.cy / 2))
+	{
+		direction.y *= -1;
+	}
+
+	// TODO : 1280을 WINCX로 감싸야 합니다.
+	if (position.y < 0 + (scale.cy / 2))
+	{
+		direction.y *= -1;
+	}
+}
+
 void Ball::Update(double deltaTime)
 {
 	RECT collideRect;
@@ -31,11 +58,7 @@ void Ball::Update(double deltaTime)
 		CalculateThetaAndSetDirection(player->position);
 	}
 
-	// TODO : 1280을 WINCX로 감싸야 합니다.
-	if (position.x > 1280 - (scale.cx / 2))
-	{
-		direction.x *= -1;
-	}
+	WallClip();
 
 	position += direction * (speed * deltaTime);
 }
