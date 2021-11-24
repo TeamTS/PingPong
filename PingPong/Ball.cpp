@@ -1,13 +1,33 @@
 #include "Ball.h"
 
+void Ball::CalculateThetaAndSetDirection(Vector2 position)
+{
+	// position = Player Position
+	float yDist = this->position.y - position.y;
+
+	// 높이 차이를 통해 세타 계산
+	// TODO : 세타의 증가량은 추가로 조절 필요
+	constexpr float growthRate = 0.2f;
+
+	// 세타의 단위를 Radian으로 변경 후, 세타를 통한 단위원 속 x, y 구하기
+	float rad = (yDist * growthRate) * (3.141592 / 180.0);
+	float x = cos(rad);
+	float y = sin(rad);
+
+	if (x < 0)
+		x *= -1;
+	// 할당 후, 크기 1로 세팅
+	direction = { x,y };
+	direction.Normalize();
+}
+
 void Ball::Update(double deltaTime)
 {
 	RECT collideRect;
 	if (IntersectRect(&collideRect, &player->rect, &rect))
 	{
-		// direction에 따라서 공의 위치를 살짝 보정해줘야 하는데, 일단 싱글이기 때문에 x를 +로만 늘려줍니다.
 		position.x += collideRect.right - collideRect.left;
-		direction.x *= -1;
+		CalculateThetaAndSetDirection(player->position);
 	}
 
 	// TODO : 1280을 WINCX로 감싸야 합니다.
