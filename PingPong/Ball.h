@@ -9,6 +9,7 @@ public:
     Vector2 direction{-1, 0};
 
     void CalculateThetaAndSetDirection(Vector2 position);
+    void WallClip(void);
     void Update(double deltaTime) override;
 };
 
