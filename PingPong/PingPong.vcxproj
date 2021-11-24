@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="ICommand.h" />
     <ClInclude Include="PacketProcessor.h" />
     <ClInclude Include="Singleton.h" />
@@ -166,6 +167,7 @@
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="NetworkManager.cpp" />
     <ClCompile Include="PacketProcessor.cpp" />
     <ClCompile Include="pch.cpp">

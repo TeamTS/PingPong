@@ -23,6 +23,9 @@
     <ClCompile Include="PacketProcessor.cpp">
       <Filter>Net</Filter>
     </ClCompile>
+    <ClCompile Include="GameObjectManager.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h">
@@ -69,6 +72,9 @@
     </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectManager.h">
+      <Filter>GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
