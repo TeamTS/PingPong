@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Ball.h"
 #include "PingPong.h"
+#include "NetworkManager.h"
 
 #define MAX_LOADSTRING 100
 #define WINCX 1280
@@ -94,6 +95,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     QueryPerformanceCounter(&lastFrame);
 
     QueryPerformanceFrequency(&cpuTick); // 진동수? 였는듯
+
+    Singleton::Register<NetworkManager>(); // 싱글톤 등록
+
 
     // 시간 누적
     double accTime = 0.0;

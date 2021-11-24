@@ -1,25 +1,27 @@
 #pragma once
 
+#include "PacketProcessor.h"
+
 enum class SessionType : unsigned char
 {
 	GameServer
 };
 
-class Session;
-class NetworkManager
+
+class NetworkManager : public Singleton::INode
 {
 private:
-	NetworkManager() = default;
-
-	static NetworkManager* mInstance;
-
-	using PlayerSession = std::shared_ptr<Session>;
-	using Sessions = std::unordered_map<SessionType, PlayerSession>;
+	using Sessions = std::unordered_map<SessionType, SessionPtr>;
 	Sessions mSessions;
 
+	using PacketData = std::pair<SessionPtr, PacketBase*>;
+	concurrency::concurrent_queue<PacketData> mPacketQueue;
+
+	PacketProcessor mPacketProcessor;
+
 public:
+	NetworkManager() = default;
 	~NetworkManager() = default;
-	static NetworkManager& GetInstance();
 
 	bool Initialize(); 
 	void Run();

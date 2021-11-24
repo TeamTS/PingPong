@@ -20,6 +20,9 @@
     <ClCompile Include="pch.cpp">
       <Filter>Default</Filter>
     </ClCompile>
+    <ClCompile Include="PacketProcessor.cpp">
+      <Filter>Net</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h">
@@ -56,6 +59,15 @@
       <Filter>Net</Filter>
     </ClInclude>
     <ClInclude Include="Vector2.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="ICommand.h">
+      <Filter>Net</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketProcessor.h">
+      <Filter>Net</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
       <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>

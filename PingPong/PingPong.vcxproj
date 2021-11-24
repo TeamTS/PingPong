@@ -147,6 +147,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ICommand.h" />
+    <ClInclude Include="PacketProcessor.h" />
+    <ClInclude Include="Singleton.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Ball.h" />
     <ClInclude Include="framework.h" />
@@ -164,6 +167,7 @@
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="NetworkManager.cpp" />
+    <ClCompile Include="PacketProcessor.cpp" />
     <ClCompile Include="pch.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>

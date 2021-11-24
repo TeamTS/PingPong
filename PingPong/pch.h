@@ -21,8 +21,15 @@
 #include <functional>
 #include <array>
 #include <assert.h>
+#include <concurrent_queue.h>
+#include <concurrent_unordered_map.h>
+#include <type_traits>
 
 #pragma comment(lib, "ws2_32.lib")
 #pragma comment(lib, "mswsock.lib")
 
+#include "Singleton.h"
 #include "PacketBase.h"
+
+class Session;
+using SessionPtr = std::shared_ptr<Session>;

@@ -2,16 +2,6 @@
 #include "NetworkManager.h"
 #include "Session.h"
 
-NetworkManager* NetworkManager::mInstance = nullptr;
-
-NetworkManager& NetworkManager::GetInstance()
-{
-	if (mInstance == nullptr)
-		mInstance = new NetworkManager;
-
-	return *mInstance;
-}
-
 bool NetworkManager::Initialize()
 {
 	WSADATA wsaData;
@@ -21,8 +11,7 @@ bool NetworkManager::Initialize()
 		return E_FAIL;
 	}
 
-
-
+		
 	//m_tServAddr.sin_family = AF_INET;
 	//m_tServAddr.sin_port = htons(_wPort);
 	//inet_pton(AF_INET, _pszIpAddress, &m_tServAddr.sin_addr);
@@ -51,7 +40,14 @@ bool NetworkManager::Connect(SessionType sessionType, const char* ip, unsigned s
 
 void NetworkManager::Update()
 {
-
+	while (mPacketQueue.empty() == false)
+	{
+		PacketData packetData;
+		if (mPacketQueue.try_pop(packetData) == false)
+		{
+			//mPacketProcessor.Process(packetData.second);
+		}
+	}
 }
 
 void NetworkManager::Run()
