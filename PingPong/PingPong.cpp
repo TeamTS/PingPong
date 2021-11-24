@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 ﻿#include "pch.h"
 #include "framework.h"
+=======
+﻿#include "framework.h"
+#include "Player.h"
+#include "Ball.h"
+>>>>>>> f3436844c962bde3ac4c27f1a477d4c50fea60d1
 #include "PingPong.h"
 
 #define MAX_LOADSTRING 100
@@ -18,66 +24,41 @@ BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
-struct Position
-{
-    float x = 0;
-    float y = 0;
-};
-
-struct Player
-{
-    Position position;
-    SIZE scale{};
-    double speed{150};
-    RECT rect{};
-
-    void UpdateRect()
-    {
-        rect = RECT 
-        { 
-            static_cast<LONG>(position.x - (scale.cx * 0.5f)),
-            static_cast<LONG>(position.y - (scale.cy * 0.5f)),
-            static_cast<LONG>(position.x + (scale.cx * 0.5f)), 
-            static_cast<LONG>(position.y + (scale.cy * 0.5f))
-        };
-    }
-};
 Player gPlayer;
+Ball gBall;
 
 void Initialize(void)
 {
-    gPlayer.position = { 50,50 };
-    gPlayer.scale = { 100,100 };
+    gPlayer.position = { 60, WINCY / 2 };
+    gPlayer.scale = { 80, 180 };
+
+    gBall.position = { WINCX / 2, WINCY / 2 };
+    gBall.scale = { 100, 100 };
+    gBall.speed = 250;
+
+    gBall.player = &gPlayer;
 }
 
 void Update(double deltaTime)
 {
-    if (GetAsyncKeyState(VK_LEFT) & 0x8000)
-    {
-        gPlayer.position.x -= gPlayer.speed * deltaTime;
-    }
-    if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
-    {
-        gPlayer.position.x += gPlayer.speed * deltaTime;
-    }
-    if (GetAsyncKeyState(VK_UP) & 0x8000)
-    {
-        gPlayer.position.y -= gPlayer.speed * deltaTime;
-    }
-    if (GetAsyncKeyState(VK_DOWN) & 0x8000)
-    {
-        gPlayer.position.y += gPlayer.speed * deltaTime;
-    }
-
     gPlayer.UpdateRect();
+    gBall.UpdateRect();
+
+    gPlayer.Update(deltaTime);
+    gBall.Update(deltaTime);
 }
 
 void Render(void)
 {
+    RECT clientRect;
+    GetClientRect(gHWND, &clientRect);
+    Rectangle(gHDC, clientRect.left, clientRect.top, clientRect.right, clientRect.bottom);
+
+
     RECT& rt = gPlayer.rect;
-    RECT r;
-    GetClientRect(gHWND, &r);
-    Rectangle(gHDC, r.left, r.top, r.right, r.bottom);
+    Rectangle(gHDC, rt.left, rt.top, rt.right, rt.bottom);
+
+    rt = gBall.rect;
     Ellipse(gHDC, rt.left, rt.top, rt.right, rt.bottom);
 }
 

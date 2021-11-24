@@ -147,16 +147,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Vector2.h" />
+    <ClInclude Include="Ball.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="NetworkManager.h" />
     <ClInclude Include="PacketBase.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PingPong.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Session.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="NetworkManager.cpp" />
     <ClCompile Include="pch.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -173,7 +179,11 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="PingPong.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="Session.cpp" />
+=======
+    <ClCompile Include="Player.cpp" />
+>>>>>>> f3436844c962bde3ac4c27f1a477d4c50fea60d1
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PingPong.rc" />

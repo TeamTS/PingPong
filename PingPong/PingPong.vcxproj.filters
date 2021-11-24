@@ -36,12 +36,26 @@
     <ClInclude Include="NetworkManager.h">
       <Filter>Net</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Session.h">
       <Filter>Net</Filter>
     </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="PacketBase.h">
       <Filter>Net\Packet</Filter>
+=======
+    <ClInclude Include="GameObject.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Ball.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>헤더 파일</Filter>
+>>>>>>> f3436844c962bde3ac4c27f1a477d4c50fea60d1
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -51,10 +65,22 @@
     <ClCompile Include="NetworkManager.cpp">
       <Filter>Net</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Session.cpp">
       <Filter>Net</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp" />
+=======
+    <ClCompile Include="GameObject.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Ball.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+>>>>>>> f3436844c962bde3ac4c27f1a477d4c50fea60d1
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PingPong.rc">
