@@ -9,7 +9,7 @@ PacketProcessor::PacketProcessor()
 	
 }
 
-void PacketProcessor::Process(PacketBase* packet, SessionPtr session)
+void PacketProcessor::Process(PacketBase* packet, Session* session)
 {
 	// test
 	SA_UserId* testPacket = reinterpret_cast<SA_UserId*>(packet);

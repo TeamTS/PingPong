@@ -8,6 +8,6 @@ class LogicGameStart : public ICommand
 public:
 	virtual unsigned short GetCode() override;
 
-	virtual void Execute(PacketBase* packet, SessionPtr session) override;
+	virtual void Execute(PacketBase* packet, Session* session) override;
 };
 

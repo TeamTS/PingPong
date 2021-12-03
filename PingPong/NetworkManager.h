@@ -8,8 +8,8 @@ enum class SessionType : unsigned char
 };
 
 
-using Sessions = std::unordered_map<SessionType, SessionPtr>;
-using PacketData = std::pair<SessionPtr, PacketBase*>;
+using Sessions = std::unordered_map<SessionType, Session*>;
+using PacketData = std::pair<Session*, PacketBase*>;
 class NetworkManager : public Singleton::INode
 {
 private:
@@ -31,7 +31,7 @@ public:
 	bool Connect(SessionType sessionType, const char* ip, unsigned short port);
 	void Update();
 
-	void PushPacket(PacketData&& packetData);
-	SessionPtr GetSession(SessionType sessionType);
+	void PushPacket(PacketData packetData);
+	Session* GetSession(SessionType sessionType);
 };
 

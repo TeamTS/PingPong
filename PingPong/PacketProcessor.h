@@ -35,7 +35,7 @@ public:
 		mCommands[code] = command;
 	}
 
-	void Process(PacketBase* packet, SessionPtr session);
+	void Process(PacketBase* packet, Session* session);
 
 	void Initialize()
 	{

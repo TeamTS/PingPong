@@ -30,7 +30,8 @@ bool NetworkManager::Connect(SessionType sessionType, const char* ip, unsigned s
 	if (iter != mSessions.end())
 		return false;
 
-	auto session = std::make_shared<Session>();
+	//auto session = std::make_shared<Session>();
+	auto session = new Session;
 
 	if (session->Initialize() == false)
 		return false;
@@ -38,6 +39,7 @@ bool NetworkManager::Connect(SessionType sessionType, const char* ip, unsigned s
 	if (session->Connect(ip, port) == false)
 		return false;
 
+	//mSessions.insert(Sessions::value_type(sessionType, session));
 	mSessions.insert(Sessions::value_type(sessionType, session));
 		
 	return true;
@@ -59,12 +61,12 @@ void NetworkManager::Update()
 	}
 }
 
-void NetworkManager::PushPacket(PacketData&& packetData)
+void NetworkManager::PushPacket(PacketData packetData)
 {
 	mPacketQueue.push(packetData);
 }
 
-SessionPtr NetworkManager::GetSession(SessionType sessionType)
+Session* NetworkManager::GetSession(SessionType sessionType)
 {
 	auto iter = mSessions.find(sessionType);
 

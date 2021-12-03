@@ -37,8 +37,8 @@ void Initialize(void)
 
 void Update(double deltaTime)
 {
-    currentScene->Update(deltaTime);
     gNetworkManager->Update();
+    currentScene->Update(deltaTime);
 }
 
 void Render(void)

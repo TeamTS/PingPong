@@ -34,7 +34,7 @@
 #include "PacketBase.h"
 
 class Session;
-using SessionPtr = std::shared_ptr<Session>;
+//using SessionPtr = std::shared_ptr<Session>;
 
 #define WINCX 1280
 #define WINCY 720
