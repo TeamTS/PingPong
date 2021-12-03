@@ -3,28 +3,37 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Ball.cpp">
-      <Filter>GameObject</Filter>
+      <Filter>Client\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Client\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>GameObject</Filter>
+      <Filter>Client\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectManager.cpp">
+      <Filter>Client\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="NetworkManager.cpp">
       <Filter>Net</Filter>
     </ClCompile>
-    <ClCompile Include="Session.cpp">
+    <ClCompile Include="PacketProcessor.cpp">
       <Filter>Net</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Default</Filter>
     </ClCompile>
-    <ClCompile Include="PacketProcessor.cpp">
-      <Filter>Net</Filter>
+    <ClCompile Include="LogicGameStart.cpp">
+      <Filter>CommandProcess</Filter>
     </ClCompile>
-    <ClCompile Include="GameObjectManager.cpp">
-      <Filter>GameObject</Filter>
+    <ClCompile Include="Player.cpp">
+      <Filter>Client\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="RingBuffer.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Session.cpp">
+      <Filter>Net</Filter>
     </ClCompile>
     <ClCompile Include="GameScene.cpp">
       <Filter>Client\Scene</Filter>
@@ -35,33 +44,37 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Client\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Client\Button</Filter>
-    <ClCompile Include="LogicGameStart.cpp">
-      <Filter>LogicProcess</Filter>
-    </ClCompile>
-    <ClCompile Include="RingBuffer.cpp">
-      <Filter>Net</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h">
+      <Filter>Client\GameObject</Filter>
+    </ClInclude>
     <ClInclude Include="Ball.h">
-      <Filter>GameObject</Filter>
+      <Filter>Client\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectManager.h">
+      <Filter>Client\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>GameObject</Filter>
+      <Filter>Client\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ICommand.h">
+      <Filter>Net</Filter>
+    </ClInclude>
+    <ClInclude Include="InGamePacket.h">
+      <Filter>Net</Filter>
     </ClInclude>
     <ClInclude Include="NetworkManager.h">
       <Filter>Net</Filter>
     </ClInclude>
-    <ClInclude Include="Session.h">
+    <ClInclude Include="PacketBase.h">
       <Filter>Net</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>GameObject</Filter>
+    <ClInclude Include="PacketCommand.h">
+      <Filter>Net</Filter>
     </ClInclude>
-    <ClInclude Include="framework.h">
-      <Filter>Default</Filter>
+    <ClInclude Include="PacketProcessor.h">
+      <Filter>Net</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Default</Filter>
@@ -69,29 +82,32 @@
     <ClInclude Include="PingPong.h">
       <Filter>Default</Filter>
     </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicGameStart.h">
+      <Filter>CommandProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Client\GameObject</Filter>
+    </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Default</Filter>
     </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>Default</Filter>
-    </ClInclude>
-    <ClInclude Include="PacketBase.h">
-      <Filter>Net</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="ICommand.h">
-      <Filter>Net</Filter>
-    </ClInclude>
-    <ClInclude Include="PacketProcessor.h">
-      <Filter>Net</Filter>
+    <ClInclude Include="RingBuffer.h">
+      <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
-      <Filter>Utility</Filter>
+      <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="GameObjectManager.h">
-      <Filter>GameObject</Filter>
+    <ClInclude Include="Vector2.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Session.h">
+      <Filter>Net</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Default</Filter>
     </ClInclude>
     <ClInclude Include="GameScene.h">
       <Filter>Client\Scene</Filter>
@@ -101,20 +117,6 @@
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Client\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Client\Button</Filter>
-    <ClInclude Include="LogicGameStart.h">
-      <Filter>LogicProcess</Filter>
-    </ClInclude>
-    <ClInclude Include="InGamePacket.h">
-      <Filter>Packet</Filter>
-    </ClInclude>
-    <ClInclude Include="PacketCommand.h">
-      <Filter>Packet</Filter>
-    </ClInclude>
-    <ClInclude Include="RingBuffer.h">
-      <Filter>Net</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -127,30 +129,25 @@
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Net">
-      <UniqueIdentifier>{b9230129-0eaa-4157-ac34-70a62fd7292b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObject">
-      <UniqueIdentifier>{516b30ef-a4e4-455f-83dc-8a2fc8dc6b5b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Utility">
-      <UniqueIdentifier>{4a9b47b3-3470-4f45-8f28-a540e3397dcc}</UniqueIdentifier>
+      <UniqueIdentifier>{4bf02386-eca8-4d5e-a4bd-c4deb1171256}</UniqueIdentifier>
     </Filter>
     <Filter Include="Default">
-      <UniqueIdentifier>{fe4da2fc-b168-45d9-ae10-900c35e164e0}</UniqueIdentifier>
+      <UniqueIdentifier>{ea2858cf-8c8e-453f-ba3f-d491021a0d61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CommandProcess">
+      <UniqueIdentifier>{408c505c-f287-4724-b1d7-0592791c99a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{6245ec44-2b8f-4bd2-a926-3cb71790abac}</UniqueIdentifier>
     </Filter>
     <Filter Include="Client">
-      <UniqueIdentifier>{091c5c0a-0b0c-47f1-a930-d626702a69df}</UniqueIdentifier>
+      <UniqueIdentifier>{cea2bd67-a9d0-4143-bc65-27d53c8984de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client\GameObject">
+      <UniqueIdentifier>{7dbdc922-8a5a-4e94-8846-eba9d63f9299}</UniqueIdentifier>
     </Filter>
     <Filter Include="Client\Scene">
-      <UniqueIdentifier>{901ca981-17ad-4465-9892-38fa08f33203}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Client\Button">
-      <UniqueIdentifier>{e8400171-da18-4384-9da5-b90d5b5afac7}</UniqueIdentifier>
-    <Filter Include="LogicProcess">
-      <UniqueIdentifier>{f584796e-3e5d-4a81-84b1-71667988b1aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Packet">
-      <UniqueIdentifier>{cee188eb-0795-498c-8f9c-bb120e810b81}</UniqueIdentifier>
+      <UniqueIdentifier>{3dcf56d7-a71b-4f51-8649-0dd8a6881e59}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
