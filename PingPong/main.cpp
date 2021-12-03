@@ -23,6 +23,8 @@ INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
 Player gPlayer;
 Ball gBall;
+NetworkManager* gNetworkManager = nullptr;
+
 
 void Initialize(void)
 {
@@ -38,6 +40,8 @@ void Initialize(void)
 
 void Update(double deltaTime)
 {
+    gNetworkManager->Update();
+
     gPlayer.UpdateRect();
     gBall.UpdateRect();
 
@@ -97,7 +101,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     QueryPerformanceFrequency(&cpuTick); // 진동수? 였는듯
 
     Singleton::Register<NetworkManager>(); // 싱글톤 등록
-
+    
+    gNetworkManager = &Singleton::Get<NetworkManager>();
 
     // 시간 누적
     double accTime = 0.0;

@@ -40,12 +40,16 @@ bool NetworkManager::Connect(SessionType sessionType, const char* ip, unsigned s
 
 void NetworkManager::Update()
 {
+	// 여기에 패킷이 쌓임.
 	while (mPacketQueue.empty() == false)
 	{
 		PacketData packetData;
+
+		// 하나씩 꺼냄
 		if (mPacketQueue.try_pop(packetData) == false)
 		{
-			//mPacketProcessor.Process(packetData.second);
+			// 패킷 처리 시도
+			mPacketProcessor.Process(packetData.second, packetData.first);
 		}
 	}
 }

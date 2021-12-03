@@ -3,7 +3,8 @@
 
 void PacketProcessor::Process(PacketBase* packet, SessionPtr session)
 {
-	auto iter = mCommands.find(packet->command);
+	auto command = reinterpret_cast<unsigned short>(packet + sizeof(PacketBase));
+	auto iter = mCommands.find(command);
 
 	if (iter == mCommands.end())
 	{
@@ -11,5 +12,5 @@ void PacketProcessor::Process(PacketBase* packet, SessionPtr session)
 		return;
 	}
 
-	iter->second->Execute(packet);
+	iter->second->Execute(packet, session);
 }	

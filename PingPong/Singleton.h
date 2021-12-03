@@ -3,7 +3,7 @@
 class Singleton
 {
 public:
-	struct INode {}; 
+	class INode { }; 
 
 private:
 	template <typename T>

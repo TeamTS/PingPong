@@ -28,6 +28,7 @@ public:
 
 	bool Connect(SessionType sessionType, const char* ip, unsigned short port);
 	void Update();
+	void SendPacket();
 
 };
 

@@ -26,6 +26,9 @@
     <ClCompile Include="GameObjectManager.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="LogicGameStart.cpp">
+      <Filter>LogicProcess</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h">
@@ -76,6 +79,15 @@
     <ClInclude Include="GameObjectManager.h">
       <Filter>GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="LogicGameStart.h">
+      <Filter>LogicProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="InGamePacket.h">
+      <Filter>Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketCommand.h">
+      <Filter>Packet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="PingPong.ico">
@@ -97,6 +109,12 @@
     </Filter>
     <Filter Include="Default">
       <UniqueIdentifier>{fe4da2fc-b168-45d9-ae10-900c35e164e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LogicProcess">
+      <UniqueIdentifier>{f584796e-3e5d-4a81-84b1-71667988b1aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Packet">
+      <UniqueIdentifier>{cee188eb-0795-498c-8f9c-bb120e810b81}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

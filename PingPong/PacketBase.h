@@ -2,6 +2,5 @@
 
 struct PacketBase
 {
-	unsigned short size;
-	unsigned short command;
+	unsigned short size; // 패킷 길이
 };

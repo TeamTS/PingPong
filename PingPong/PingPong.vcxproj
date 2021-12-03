@@ -147,6 +147,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="InGamePacket.h" />
+    <ClInclude Include="PacketCommand.h" />
+    <ClInclude Include="LogicGameStart.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="ICommand.h" />
     <ClInclude Include="PacketProcessor.h" />
@@ -166,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="LogicGameStart.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="NetworkManager.cpp" />

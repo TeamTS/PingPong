@@ -1,5 +1,6 @@
 #pragma once
 
+class GameObject;
 class Session
 {
 public:
