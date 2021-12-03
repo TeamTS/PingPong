@@ -1,34 +1,15 @@
 ﻿// Server.cpp : 이 파일에는 'main' 함수가 포함됩니다. 거기서 프로그램 실행이 시작되고 종료됩니다.
 //
 
-#include <iostream>
-#include <WS2tcpip.h>
-#include <WinSock2.h>
-#include <string>
-#include <thread>
-#include <vector>
-#include <map>
-#include "../PingPong/InGamePacket.h"
-
-// 라이브러리 추가
-#pragma comment(lib, "ws2_32.lib")
+#include "pch.h"
+#include "Session.h"
 
 // 서버 아이피 포트
-#define IP "192.168.0.70"
-#define PORT 9000
+#define IP "127.0.0.1"
+#define PORT 30002
 
 std::vector<std::string> commands;
 
-struct Session
-{
-    SOCKET socket;
-    SOCKADDR_IN clientAddr;
-    char recvBuffer[1000] = {};
-    int curRecvLen = 0;
-};
-
-using SESSION = std::map<SOCKET, Session>;
-SESSION Sessions;
 
 enum class PacketCommand : unsigned short
 {
@@ -37,119 +18,14 @@ enum class PacketCommand : unsigned short
     USER_LIST
 };
 
-struct Packet
+void ProcessPacket(std::shared_ptr<Session> session)
 {
-    unsigned short len; // 패킷의 길이
-    PacketCommand type; // 패킷 타입
-};
 
-struct PacketChatting : public Packet
-{
-    int dataLen = 0;
-    char data[1024] = {};
-};
-
-void Chatting(Packet* _packet, SOCKET s)
-{
-    PacketChatting* packet = reinterpret_cast<PacketChatting*>(_packet);
-
-    // 여기서 채팅 처리
-    for (auto iter : Sessions)
-    {
-        if (s == iter.first)
-            continue;
-        send(iter.first, packet->data, packet->dataLen, 0);
-    }
 }
 
-
-unsigned int __stdcall RecvThread(void* _arg)
-{
-    SOCKET socket = (SOCKET)_arg;
-
-    Session& session = Sessions[socket];
-
-    char* buffer = session.recvBuffer;
-
-    while (true)
-    {
-        // 버퍼 크기 - 현재 리시브 받은 량
-        // 오버플로우 방지
-        int recvBytes = recv(socket, buffer + session.curRecvLen, sizeof(session.recvBuffer) - session.curRecvLen, 0);
-
-        if (recvBytes <= 0)
-            break;
-
-        session.curRecvLen += recvBytes;
-
-        while (session.curRecvLen >= 2)
-        {
-            // 클라에서는
-            // 클라에서 패킷을 보낼때
-            // packetLen(2btytes) + PacketCommand(2bytes) + fds(3byt
-            Packet* packet = reinterpret_cast<Packet*>(buffer);
-
-            // 이건 완패킷이 아니라는거겠지
-            // 근데 recv잠만
-            // 여기서 완패킷이 만약 아니라면 
-            // 다음 리시브를 받을 때 버퍼에있던게 계속 유지되있어야겠지?
-            // 그러니깐 세션마다 버퍼를 가지게 해야겠지?
-            // 근데 여기 전에도 지금 len 변수가 2바이트잖아 1바이트만 들어왔을때 packet->len을 할 수 없잖아
-
-            // 현재 recv받은 패킷 길이가 패킷을 읽을만한 크기이상인지
-            // 정해줘야지
-
-            // 완전한 패킷이 아니라면 break
-            if (session.curRecvLen < packet->len)
-                break;
-
-            // 그럼 이때야 비로소 완패킷이라는걸 알 수 있고 패킷을 읽는거지
-
-            // 이런식으로 패킷이 무엇인지 식별할수있도록 패킷 command를 넣어줄수있지
-            // 근데 여기서 문제점이 아직 recv를 했을 때 패킷이 전부 들어왔다는 보장이 없잖아
-            // 즉 이게 완전한 패킷이 라는 보장이 없는거지
-            // 아까 말했다시피 recv를 했을때 10bytes중에 5만 recv했을수도있고
-            // 그래서 패킷의 맨 앞에 패킷 길이까지 넣어주는거야 이 패킷의 크기가 몇인지
-            switch (packet->type)
-            {
-                // 채팅 처리
-            case PacketCommand::CHATTING:
-                Chatting(packet, socket);
-                break;
-            case PacketCommand::USER_LIST:
-                // 알맞은 처리
-                break;
-            }
-
-            // 그럼 여기까지가 패킷을 처리했잖아?
-            // 그럼 이제 recvBuffer를 읽은 만큼 앞으로 당겨줘야겠지?
-
-            // 읽은 만큼 패킷 길이 감소
-            // 이코드 이해됨?
-            session.curRecvLen -= packet->len;
-            // curRecvLen은 이제 안읽은 ㄹ리시브 패킷들이지
-
-            // 땡기는 이유
-            // sizeof(buffer) - session.curRecvLen 이거 음수로 갈까봐
-            memcpy(session.recvBuffer, // 버퍼의 시작 주소
-                session.recvBuffer + packet->len, // 버퍼 시작 주소 + 패킷 길이  
-                session.curRecvLen);
-        }
-    }
-
-    // 여기까지온거는 소켓이 종류된거임.
-    auto iter = Sessions.find(socket);
-
-    if (iter != Sessions.end())
-        Sessions.erase(iter);
-
-    return 0;
-}
 
 int main()
 {
-    commands.push_back("/check users");
-
     // winsock 초기화
     WSADATA wsaData;
     if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0)
@@ -158,24 +34,15 @@ int main()
         return 1;
     }
 
-    // TCP 소켓 생성
     SOCKET listenSocket = ::socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
-    // tcp : SOCK_STREAM
-    // udp : SOCK_DGRAM 데이터 그램
 
-    // 유효하지 않은 소켓이라면
     if (listenSocket == INVALID_SOCKET)
         return 1;
 
     SOCKADDR_IN sockAddr;
-    // 처음에 무조건 0으로 메모리 밀어줘야함
     ZeroMemory(&sockAddr, sizeof(sockAddr));
     sockAddr.sin_family = AF_INET;
-
-    // 포트 설정
     sockAddr.sin_port = htons(PORT);
-
-    // 아이피 설정
     inet_pton(AF_INET, IP, &sockAddr.sin_addr);
 
     // 소켓 바인딩
@@ -187,39 +54,91 @@ int main()
 
     std::cout << "연결 대기중...." << std::endl;
 
-    SOCKADDR_IN clientAddr;
-    int addrLen = sizeof(clientAddr);
+    fd_set_ex  socketInfos;
+    fd_set_ex  readInfos;
+    FD_ZERO_EX(&socketInfos);
+    FD_SET_EX(listenSocket, nullptr, &socketInfos);
 
-    // accept 스레드를 생성
-    std::thread acceptThread([&]()
+    int userIndex = 0;
+    while (true)
     {
-        // 계속 accept를 반복한다.
-        while (true)
+        readInfos = socketInfos; // 감시대상을 넣어준다.
+
+        int ret = select(0, (fd_set*)&readInfos, NULL, NULL, NULL);
+
+        if (SOCKET_ERROR == ret)
         {
-            // 클라이언트 연결을 기다림..
-            SOCKET clientSocket = accept(listenSocket, reinterpret_cast<sockaddr*>(&clientAddr), &addrLen);
-
-            if (clientSocket == INVALID_SOCKET)
-                continue;
-
-            char ipAddress[64] = {};
-            inet_ntop(AF_INET, &clientAddr.sin_addr, ipAddress, sizeof(ipAddress));
-
-            // 소켓 저장
-            Sessions.insert(SESSION::value_type(clientSocket, { clientSocket, clientAddr }));
-
-            unsigned int threadId = 0;
-
-            // 리시브 스레드 생성
-            _beginthreadex(NULL, NULL,
-                &RecvThread,
-                reinterpret_cast<void*>(clientSocket),
-                0, &threadId);
+            std::cout << "Failed select()" << std::endl;
+            break;
         }
 
-        return 0;
-    });
+        for (u_int i = 0; i < socketInfos.fd_count; ++i)
+        {
+            SOCKET readSocket = socketInfos.fd_array[i];
 
-    // 주 스레드가 종료되지 않게 루프
-    while (true);
+            if (FD_ISSET_EX(readSocket, &readInfos))
+            {
+                // 변화가 있는 대상이 listensocket 인 경우 => accept
+                if (readSocket == listenSocket)
+                {
+                    SOCKADDR_IN clientAddr;
+                    int addrLen = sizeof(clientAddr);
+                    SOCKET clientSocket = accept(listenSocket, (SOCKADDR*)&clientAddr, &addrLen);
+
+                    if (INVALID_SOCKET == clientSocket)
+                    {
+                        std::cout << "clientSocket == INVALID_SOCKET" << std::endl;
+                        continue;
+                    }
+
+                    if (INVALID_SOCKET == listenSocket)
+                    {
+                        std::cout << "Failed accept()" << std::endl;
+                        return false;
+                    }
+
+                    // 세션 생성
+                    Session* session = new Session(clientSocket, clientAddr, userIndex++);
+
+                    if (nullptr == session)
+                        return false;
+
+                    // 감시 대상에 추가
+                    FD_SET_EX(clientSocket, session, &socketInfos);
+
+                    std::cout << "[Info] Connected Socket( " << clientSocket << ")" << std::endl;
+
+                    // 플레이어 인덱스 전송
+                    //m_pInGamePacketHandler->SendInitGame(pSession);
+                    // test
+                    //send(clientSocket, (const char*)&userIndex, sizeof(userIndex), 0);
+                    continue;
+                }
+
+                auto session = socketInfos.session[i];
+
+                if (nullptr == session)
+                {
+                    std::cout << "[Error] socket(" << readSocket << ") Invalid Session" << std::endl;
+                    FD_CLR_EX(readSocket, &socketInfos);
+                    continue;
+                }
+
+                if (!session->RecvPacket())
+                {
+                    std::cout << "[Info] disconnect socket(" << readSocket << ")" << std::endl;
+                    // 감시 대상에서 제거한다.
+                    FD_CLR_EX(readSocket, &socketInfos);
+                    continue;
+                }
+
+                // 패킷 처리
+
+            }
+        }
+    }
+
+    WSACleanup();
+    return 0;
+
 }

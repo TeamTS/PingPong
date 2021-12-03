@@ -2,10 +2,17 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Session.cpp">
+      <Filter>net</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="packet">
       <UniqueIdentifier>{ce6b0a5e-66c6-472b-9827-ff8937deeab8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="net">
+      <UniqueIdentifier>{177bf968-d592-4e2f-abdf-69cf76af2dd7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -17,6 +24,11 @@
     </ClInclude>
     <ClInclude Include="..\PingPong\PacketBase.h">
       <Filter>packet</Filter>
+    </ClInclude>
+    <ClInclude Include="define.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Session.h">
+      <Filter>net</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

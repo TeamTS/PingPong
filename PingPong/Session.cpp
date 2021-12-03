@@ -1,13 +1,19 @@
 #include "pch.h"
 #include "Session.h"
 #include "NetworkManager.h"
+#include <exception>
 
 Session::Session()
 {
+	mSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+
+	if (INVALID_SOCKET == mSocket)
+		throw new std::exception("create socket error");
 }
 
 Session::~Session()
 {
+	closesocket(mSocket);
 }
 
 bool Session::Initialize()
@@ -31,7 +37,7 @@ bool Session::Connect(const char* ip, unsigned short port)
 	
 	int len = sizeof(servAddr);
 
-	if (connect(mSocket, reinterpret_cast<SOCKADDR*>(&servAddr), len) == false)
+	if (connect(mSocket, reinterpret_cast<SOCKADDR*>(&servAddr), len) == SOCKET_ERROR)
 		return false;
 
 	InterlockedExchange(reinterpret_cast<LONG*>(&IsConnect), TRUE);
