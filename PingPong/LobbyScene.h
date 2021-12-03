@@ -1,6 +1,8 @@
-#pragma once
+ï»¿#pragma once
 #include "Scene.h"
 class Button;
+enum class LobbyInputStage {IP, PORT, END};
+
 class LobbyScene :
 	public Scene
 {
@@ -8,17 +10,20 @@ public:
 	std::shared_ptr<Button> button;
 	LobbyScene();
 	~LobbyScene();
-	// SceneÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+	// Sceneì„(ë¥¼) í†µí•´ ìƒì†ë¨
 	virtual void Update(float deltatime) override;
 	virtual void Render(HWND hwnd, HDC hdc) override;
 
 	TCHAR str[100] = L"";
 	bool isServerConnected = false;
 
-	TCHAR ip_str[100] = L"";
-	TCHAR port_str[100] = L"";
-
-	// SceneÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+	LobbyInputStage inputStage = LobbyInputStage::IP;
+	std::wstring ip = L"IP : ";
+	std::wstring ipInput = L"";
+	std::wstring port = L"PORT : ";
+	std::wstring portInput = L"";
+	unsigned short portValue = 0;
+	// Sceneì„(ë¥¼) í†µí•´ ìƒì†ë¨
 	virtual void Initialize(void) override;
 };
 

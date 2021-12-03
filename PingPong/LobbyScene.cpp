@@ -15,10 +15,33 @@ void LobbyScene::Update(float deltatime)
 	button->UpdateRect();
 
 	button->Update(deltatime);
+
+	switch (inputStage)
+	{
+	case LobbyInputStage::IP:
+		ip = L"бс IP : ";
+		port = L"PORT : ";
+		break;
+	case LobbyInputStage::PORT:
+		ip = L"IP : ";
+		port = L"бс PORT : ";
+		break;
+	case LobbyInputStage::END:
+		portValue = std::stoi(portInput);
+		ip = L"IP : ";
+		port = L"PORT : ";
+		break;
+	default:
+		break;
+	}
 }
 
 void LobbyScene::Render(HWND hwnd, HDC hdc)
 {
+	RECT clientRect;
+	GetClientRect(hwnd, &clientRect);
+	Rectangle(hdc, clientRect.left, clientRect.top, clientRect.right, clientRect.bottom);
+
 	RECT& rt = button->rect;
 
 	Rectangle(hdc, rt.left, rt.top, rt.right, rt.bottom);
@@ -30,6 +53,12 @@ void LobbyScene::Render(HWND hwnd, HDC hdc)
 	swprintf_s(str, text.c_str());
 
 	TextOut(hdc, 0, 0, str, _tcslen(str));
+
+	ip += ipInput;
+	port += portInput;
+
+	TextOut(hdc, 0, 300, ip.c_str(), ip.size());
+	TextOut(hdc, 0, 320, port.c_str(), port.size());
 }
 
 void LobbyScene::Initialize(void)
