@@ -40,7 +40,7 @@ bool Session::Connect(const char* ip, unsigned short port)
 	if (connect(mSocket, reinterpret_cast<SOCKADDR*>(&servAddr), len) == SOCKET_ERROR)
 		return false;
 
-	InterlockedExchange(reinterpret_cast<LONG*>(&IsConnect), TRUE);
+	InterlockedExchange(reinterpret_cast<LONG*>(&mIsConnect), TRUE);
 
 	unsigned int id = 0;
 	_beginthreadex(NULL, NULL, Session::RecvThreadFunc, this, 0, &id);
@@ -66,6 +66,11 @@ void Session::SendPacket(const PacketBase& packet)
 	send(mSocket, reinterpret_cast<const char*>(&packet), packet.size, 0);
 }
 
+bool Session::IsConnect()
+{
+	return mIsConnect;
+}
+
 unsigned int __stdcall Session::RecvThreadFunc(void* arg)
 {
 	return static_cast<Session*>(arg)->RecvThread();
@@ -75,13 +80,13 @@ unsigned int Session::RecvThread()
 {
 	auto& networkManager = *Singleton::Get<NetworkManager>();
 
-	while (IsConnect)
+	while (mIsConnect)
 	{
 		int recvByte = recv(mSocket, mRecvBuffer.GetWritePoint(), mRecvBuffer.GetRemainSize(), 0);
 
 		if (recvByte <= 0)
 		{
-			InterlockedExchange(reinterpret_cast<LONG*>(&IsConnect), FALSE);
+			InterlockedExchange(reinterpret_cast<LONG*>(&mIsConnect), FALSE);
 			continue;
 		}
 

@@ -14,6 +14,7 @@ public:
 	void SetGameObject(std::shared_ptr<GameObject> gameObject);
 	void MoveProcessPoint(PacketBase* packet);
 	void SendPacket(const PacketBase& packet);
+	bool IsConnect();
 	std::shared_ptr<GameObject> GetGameObject() { return mGameObject; }
 
 	static unsigned int __stdcall RecvThreadFunc(void* arg);
@@ -24,7 +25,7 @@ private:
 private:
 	SOCKET mSocket = NULL;
 	RingBuffer mRecvBuffer;
-	BOOL IsConnect = false;
+	BOOL mIsConnect = false;
 
 	std::shared_ptr<GameObject> mGameObject;
 };

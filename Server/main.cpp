@@ -138,6 +138,7 @@ int main()
         }
     }
 
+    closesocket(listenSocket);
     WSACleanup();
     return 0;
 
