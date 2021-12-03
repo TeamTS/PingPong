@@ -5,7 +5,7 @@ class Ball :
     public GameObject
 {
 public:
-    GameObject* player{ nullptr };
+    std::shared_ptr<GameObject> player{ nullptr };
     Vector2 direction{-1, 0};
 
     void CalculateThetaAndSetDirection(Vector2 position);

@@ -147,9 +147,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h" />
     <ClInclude Include="GameObjectManager.h" />
+    <ClInclude Include="GameScene.h" />
     <ClInclude Include="ICommand.h" />
+    <ClInclude Include="LobbyScene.h" />
     <ClInclude Include="PacketProcessor.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Ball.h" />
@@ -166,8 +170,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="LobbyScene.cpp" />
     <ClCompile Include="NetworkManager.cpp" />
     <ClCompile Include="PacketProcessor.cpp" />
     <ClCompile Include="pch.cpp">
@@ -185,6 +192,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>

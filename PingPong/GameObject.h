@@ -5,8 +5,8 @@
 class GameObject
 {
 public:
-    Vector2 position;
-    SIZE scale{};
+    Vector2 position{0,0};
+    SIZE scale{1,1};
     double speed{ 300 };
     RECT rect{};
 

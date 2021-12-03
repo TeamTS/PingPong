@@ -1,13 +1,12 @@
 ﻿#include "pch.h"
 #include "framework.h"
-#include "Player.h"
-#include "Ball.h"
 #include "PingPong.h"
 #include "NetworkManager.h"
+#include "GameScene.h"
+#include "LobbyScene.h"
+#include "Button.h"
 
 #define MAX_LOADSTRING 100
-#define WINCX 1280
-#define WINCY 720
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
@@ -21,42 +20,30 @@ BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
-Player gPlayer;
-Ball gBall;
+std::shared_ptr<Scene> currentScene;
+
+std::shared_ptr<GameScene> gameScene;
+std::shared_ptr<LobbyScene> lobbyScene;
+
+std::shared_ptr<Button> button;
 
 void Initialize(void)
 {
-    gPlayer.position = { 60, WINCY / 2 };
-    gPlayer.scale = { 80, 180 };
-
-    gBall.position = { WINCX / 2, WINCY / 2 };
-    gBall.scale = { 100, 100 };
-    gBall.speed = 250;
-
-    gBall.player = &gPlayer;
+    currentScene = lobbyScene;
+    lobbyScene->button = button;
+    button->scale = { 100,50 };
+    button->position = { WINCX / 2, WINCY / 2 };
+    currentScene->Initialize();
 }
 
 void Update(double deltaTime)
 {
-    gPlayer.UpdateRect();
-    gBall.UpdateRect();
-
-    gPlayer.Update(deltaTime);
-    gBall.Update(deltaTime);
+    currentScene->Update(deltaTime);
 }
 
 void Render(void)
 {
-    RECT clientRect;
-    GetClientRect(gHWND, &clientRect);
-    Rectangle(gHDC, clientRect.left, clientRect.top, clientRect.right, clientRect.bottom);
-
-
-    RECT& rt = gPlayer.rect;
-    Rectangle(gHDC, rt.left, rt.top, rt.right, rt.bottom);
-
-    rt = gBall.rect;
-    Ellipse(gHDC, rt.left, rt.top, rt.right, rt.bottom);
+    currentScene->Render(gHWND, gHDC);
 }
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
@@ -85,6 +72,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MSG msg{};
     msg.message = WM_NULL;
     gHDC = GetDC(gHWND);
+
+    gameScene = std::make_shared<GameScene>();
+    lobbyScene = std::make_shared<LobbyScene>();
+    button = std::make_shared<Button>();
+
     Initialize();
     // 기본 메시지 루프입니다:
     LARGE_INTEGER curFrame;
@@ -203,6 +195,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     case WM_DESTROY:
         PostQuitMessage(0);
+        break;
+    case WM_LBUTTONDOWN:
+        if (button->IsClicked(gHWND))
+        {
+            // 동작 시작
+        }
+        break;
+    case WM_LBUTTONUP:
         break;
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);

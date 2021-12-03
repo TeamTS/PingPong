@@ -24,6 +24,7 @@
 #include <concurrent_queue.h>
 #include <concurrent_unordered_map.h>
 #include <type_traits>
+#include <memory>
 
 #pragma comment(lib, "ws2_32.lib")
 #pragma comment(lib, "mswsock.lib")
@@ -33,3 +34,6 @@
 
 class Session;
 using SessionPtr = std::shared_ptr<Session>;
+
+#define WINCX 1280
+#define WINCY 720

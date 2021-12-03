@@ -26,6 +26,18 @@
     <ClCompile Include="GameObjectManager.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Client\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="LobbyScene.cpp">
+      <Filter>Client\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Client\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Client\Button</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h">
@@ -76,6 +88,18 @@
     <ClInclude Include="GameObjectManager.h">
       <Filter>GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Client\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="LobbyScene.h">
+      <Filter>Client\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Client\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Client\Button</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="PingPong.ico">
@@ -97,6 +121,15 @@
     </Filter>
     <Filter Include="Default">
       <UniqueIdentifier>{fe4da2fc-b168-45d9-ae10-900c35e164e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client">
+      <UniqueIdentifier>{091c5c0a-0b0c-47f1-a930-d626702a69df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client\Scene">
+      <UniqueIdentifier>{901ca981-17ad-4465-9892-38fa08f33203}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client\Button">
+      <UniqueIdentifier>{e8400171-da18-4384-9da5-b90d5b5afac7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
