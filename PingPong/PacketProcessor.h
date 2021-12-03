@@ -2,7 +2,6 @@
 
 
 #include "ICommand.h"
-#include "LogicGameStart.h"
 
 class Session;
 class PacketProcessor
@@ -37,11 +36,7 @@ public:
 
 	void Process(PacketBase* packet, Session* session);
 
-	void Initialize()
-	{
-		// 패킷 처리 객체 등록
-		Register(new LogicGameStart);
-	}
+	void Initialize();
 
 private:
 	// packet command, command object

@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="Button.h" />
     <ClInclude Include="InGamePacket.h" />
+    <ClInclude Include="LogicUserId.h" />
     <ClInclude Include="PacketCommand.h" />
     <ClInclude Include="LogicGameStart.h" />
     <ClInclude Include="GameObjectManager.h" />
@@ -181,6 +182,7 @@
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="LobbyScene.cpp" />
+    <ClCompile Include="LogicUserId.cpp" />
     <ClCompile Include="NetworkManager.cpp" />
     <ClCompile Include="PacketProcessor.cpp" />
     <ClCompile Include="pch.cpp">

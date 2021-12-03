@@ -47,6 +47,9 @@
     <ClCompile Include="InGamePacket.cpp">
       <Filter>Net</Filter>
     </ClCompile>
+    <ClCompile Include="LogicUserId.cpp">
+      <Filter>CommandProcess</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h">
@@ -120,6 +123,9 @@
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Client\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicUserId.h">
+      <Filter>CommandProcess</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
