@@ -102,7 +102,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     Singleton::Register<NetworkManager>(); // 싱글톤 등록
     
-    gNetworkManager = &Singleton::Get<NetworkManager>();
+    gNetworkManager = Singleton::Get<NetworkManager>();
 
     // 시간 누적
     double accTime = 0.0;

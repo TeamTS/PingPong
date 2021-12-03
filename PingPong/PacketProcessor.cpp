@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "PacketProcessor.h"
+#include "Session.h"
 
 void PacketProcessor::Process(PacketBase* packet, SessionPtr session)
 {
@@ -13,4 +14,5 @@ void PacketProcessor::Process(PacketBase* packet, SessionPtr session)
 	}
 
 	iter->second->Execute(packet, session);
+	session->MoveProcessPoint(packet);
 }	

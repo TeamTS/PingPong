@@ -1,5 +1,7 @@
 #pragma once
 
+#include "RingBuffer.h"
+
 class GameObject;
 class Session
 {
@@ -9,19 +11,21 @@ public:
 
 	bool Initialize();
 	bool Connect(const char* ip, unsigned short port);
+	void SetGameObject(std::shared_ptr<GameObject> gameObject);
+	void MoveProcessPoint(PacketBase* packet);
+	void SendPacket(const PacketBase& packet);
+	std::shared_ptr<GameObject> GetGameObject() { return mGameObject; }
 
 	static unsigned int __stdcall RecvThreadFunc(void* arg);
-	static unsigned int __stdcall SendThreadFunc(void* arg);
 
 private:
-	unsigned int SendThread();
 	unsigned int RecvThread();
 
 private:
 	SOCKET mSocket = NULL;
-	static const int MaxRecvBufferLen = 2048;
-	char mRecvBuffer[MaxRecvBufferLen] = {};
-	int  mCurPacketLen = 0;
+	RingBuffer mRecvBuffer;
 	BOOL IsConnect = false;
+
+	std::shared_ptr<GameObject> mGameObject;
 };
 

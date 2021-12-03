@@ -29,6 +29,9 @@
     <ClCompile Include="LogicGameStart.cpp">
       <Filter>LogicProcess</Filter>
     </ClCompile>
+    <ClCompile Include="RingBuffer.cpp">
+      <Filter>Net</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h">
@@ -87,6 +90,9 @@
     </ClInclude>
     <ClInclude Include="PacketCommand.h">
       <Filter>Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="RingBuffer.h">
+      <Filter>Net</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

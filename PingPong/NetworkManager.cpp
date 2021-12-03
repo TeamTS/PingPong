@@ -2,6 +2,11 @@
 #include "NetworkManager.h"
 #include "Session.h"
 
+NetworkManager::~NetworkManager()
+{
+	WSACleanup();
+}
+
 bool NetworkManager::Initialize()
 {
 	WSADATA wsaData;
@@ -11,11 +16,7 @@ bool NetworkManager::Initialize()
 		return E_FAIL;
 	}
 
-		
-	//m_tServAddr.sin_family = AF_INET;
-	//m_tServAddr.sin_port = htons(_wPort);
-	//inet_pton(AF_INET, _pszIpAddress, &m_tServAddr.sin_addr);
-    return false;
+    return true;
 }
 
 bool NetworkManager::Connect(SessionType sessionType, const char* ip, unsigned short port)
@@ -52,6 +53,21 @@ void NetworkManager::Update()
 			mPacketProcessor.Process(packetData.second, packetData.first);
 		}
 	}
+}
+
+void NetworkManager::PushPacket(PacketData&& packetData)
+{
+	mPacketQueue.push(packetData);
+}
+
+SessionPtr NetworkManager::GetSession(SessionType sessionType)
+{
+	auto iter = mSessions.find(sessionType);
+
+	if (iter == mSessions.end())
+		return nullptr;
+
+	return iter->second;
 }
 
 void NetworkManager::Run()

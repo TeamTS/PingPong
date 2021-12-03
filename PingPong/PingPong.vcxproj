@@ -153,6 +153,7 @@
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="ICommand.h" />
     <ClInclude Include="PacketProcessor.h" />
+    <ClInclude Include="RingBuffer.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Ball.h" />
@@ -189,6 +190,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RingBuffer.cpp" />
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
