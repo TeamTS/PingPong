@@ -91,6 +91,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     Singleton::Register<NetworkManager>(); // 싱글톤 등록
     
     gNetworkManager = Singleton::Get<NetworkManager>();
+    gNetworkManager->Initialize();
 
     // 시간 누적
     double accTime = 0.0;
@@ -201,7 +202,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         if (button->IsClicked(gHWND))
         {
             // 동작 시작
-            //Singleton::Get<NetworkManager>()->Connect(SessionType::GameServer, );
+            std::string ipFinal(lobbyScene->ipInput.begin(), lobbyScene->ipInput.end());
+            Singleton::Get<NetworkManager>()->Connect(SessionType::GameServer, ipFinal.c_str(), lobbyScene->portValue);
         }
         break;
     case WM_LBUTTONUP:
