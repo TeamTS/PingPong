@@ -11,11 +11,11 @@ public:
 
 	bool Initialize();
 	bool Connect(const char* ip, unsigned short port);
-	void SetGameObject(std::shared_ptr<GameObject> gameObject);
+	void SetUserId(int userId);
 	void MoveProcessPoint(PacketBase* packet);
 	void SendPacket(const PacketBase& packet);
 	bool IsConnect();
-	std::shared_ptr<GameObject> GetGameObject() { return mGameObject; }
+	int GetUserId() { return mUserId; }
 
 	static unsigned int __stdcall RecvThreadFunc(void* arg);
 
@@ -26,7 +26,6 @@ private:
 	SOCKET mSocket = NULL;
 	RingBuffer mRecvBuffer;
 	BOOL mIsConnect = false;
-
-	std::shared_ptr<GameObject> mGameObject;
+	int mUserId = -1;
 };
 

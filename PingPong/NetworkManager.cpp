@@ -51,7 +51,7 @@ void NetworkManager::Update()
 		PacketData packetData;
 
 		// 하나씩 꺼냄
-		if (mPacketQueue.try_pop(packetData) == false)
+		if (mPacketQueue.try_pop(packetData))
 		{
 			// 패킷 처리 시도
 			mPacketProcessor.Process(packetData.second, packetData.first);

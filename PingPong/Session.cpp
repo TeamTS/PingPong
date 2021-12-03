@@ -48,12 +48,9 @@ bool Session::Connect(const char* ip, unsigned short port)
 	return true;
 }
 
-void Session::SetGameObject(std::shared_ptr<GameObject> gameObject)
+void Session::SetUserId(int userId)
 {
-	if (gameObject.get() == nullptr)
-		return;
-
-	mGameObject = gameObject;
+	mUserId = userId;
 }
 
 void Session::MoveProcessPoint(PacketBase* packet)

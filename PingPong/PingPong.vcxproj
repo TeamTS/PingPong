@@ -175,6 +175,7 @@
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="InGamePacket.cpp" />
     <ClCompile Include="LogicGameStart.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />

@@ -8,7 +8,7 @@ class Session;
 class PacketProcessor
 {
 public:
-	PacketProcessor() = default;
+	PacketProcessor();
 	~PacketProcessor()
 	{
 		for (auto packet : mCommands)
@@ -45,6 +45,8 @@ public:
 
 private:
 	// packet command, command object
+
+	// key : 패킷 고유 번호, value : 패킷 처리 객체 
 	std::map<unsigned short, ICommand*> mCommands;
 };
 

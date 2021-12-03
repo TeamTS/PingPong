@@ -4,7 +4,7 @@
 
 unsigned short LogicGameStart::GetCode()
 {
-    return SN_GameStart::code;
+    return static_cast<unsigned short>(ServerPacket::SN_GameStart);
 }
 
 void LogicGameStart::Execute(PacketBase* packet, SessionPtr session)

@@ -44,6 +44,9 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Client\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="InGamePacket.cpp">
+      <Filter>Net</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h">

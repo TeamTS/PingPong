@@ -2,5 +2,6 @@
 
 enum class ServerPacket : unsigned short
 {
-	SN_GameStart = 0
+	SA_UserId = 0,
+	SN_GameStart = 1
 };

@@ -5,24 +5,16 @@
 #include "Session.h"
 
 // 서버 아이피 포트
+//#define IP "124.5.191.21"
 #define IP "127.0.0.1"
 #define PORT 30002
 
 std::vector<std::string> commands;
 
-
-enum class PacketCommand : unsigned short
-{
-    // 일반 채팅
-    CHATTING,
-    USER_LIST
-};
-
 void ProcessPacket(std::shared_ptr<Session> session)
 {
-
+    
 }
-
 
 int main()
 {
@@ -112,6 +104,14 @@ int main()
                     //m_pInGamePacketHandler->SendInitGame(pSession);
                     // test
                     //send(clientSocket, (const char*)&userIndex, sizeof(userIndex), 0);
+
+                    // 여기가 연결된 직후임.
+
+                    SA_UserId packet;
+                    packet.userId = userIndex;
+                    send(clientSocket, reinterpret_cast<const char*>(&packet), packet.size, 0);
+
+
                     continue;
                 }
 
