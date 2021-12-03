@@ -206,6 +206,32 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     case WM_LBUTTONUP:
         break;
+    case WM_CHAR:
+        switch (lobbyScene->inputStage)
+        {
+        case LobbyInputStage::IP:
+            lobbyScene->ipInput += wParam;
+            break;
+        case LobbyInputStage::PORT:
+            if(iswdigit(wParam))
+                lobbyScene->portInput += wParam;
+            break;
+        }
+        break;
+    case WM_KEYDOWN:
+        if (wParam == VK_RETURN)
+        {
+            switch (lobbyScene->inputStage)
+            {
+            case LobbyInputStage::IP:
+                lobbyScene->inputStage = LobbyInputStage::PORT;
+                break;
+            case LobbyInputStage::PORT:
+                lobbyScene->inputStage = LobbyInputStage::END;
+                break;
+            }
+        }
+        break;
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }

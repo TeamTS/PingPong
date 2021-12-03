@@ -25,6 +25,7 @@
 #include <concurrent_unordered_map.h>
 #include <type_traits>
 #include <memory>
+#include <string>
 
 #pragma comment(lib, "ws2_32.lib")
 #pragma comment(lib, "mswsock.lib")
