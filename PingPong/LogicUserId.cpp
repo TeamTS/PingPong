@@ -8,7 +8,7 @@ unsigned short LogicUserId::GetCode()
     return static_cast<unsigned short>(ServerPacket::SA_UserId);
 }
 
-void LogicUserId::Execute(PacketBase* packet, SessionPtr session)
+void LogicUserId::Execute(PacketBase* packet, Session* session)
 {
     SA_UserId* convertPacket = reinterpret_cast<SA_UserId*>(packet);
 
