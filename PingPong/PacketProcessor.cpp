@@ -1,7 +1,9 @@
 #include "pch.h"
 #include "PacketProcessor.h"
 #include "Session.h"
-#include "InGamePacket.h"
+#include "PacketBase.h"
+#include "LogicGameStart.h"
+#include "LogicUserId.h"
 
 PacketProcessor::PacketProcessor()
 {
@@ -11,11 +13,8 @@ PacketProcessor::PacketProcessor()
 
 void PacketProcessor::Process(PacketBase* packet, SessionPtr session)
 {
-	// test
-	SA_UserId* testPacket = reinterpret_cast<SA_UserId*>(packet);
-
 	// packet 마다의 고유 번호가져옴.
-	auto command = *reinterpret_cast<unsigned short*>(packet + sizeof(unsigned short));
+	auto command = *reinterpret_cast<unsigned short*>(packet + 2);
 
 	// 고유 번호로 처리할 로직을 찾는다.
 	auto iter = mCommands.find(command);
@@ -32,4 +31,11 @@ void PacketProcessor::Process(PacketBase* packet, SessionPtr session)
 
 
 	session->MoveProcessPoint(packet);
-}	
+}
+
+void PacketProcessor::Initialize()
+{
+	// 패킷 처리 객체 등록
+	Register(new LogicGameStart);
+	Register(new LogicUserId);
+}

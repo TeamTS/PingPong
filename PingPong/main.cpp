@@ -203,7 +203,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             // 동작 시작
             std::string ipFinal(lobbyScene->ipInput.begin(), lobbyScene->ipInput.end());
-            Singleton::Get<NetworkManager>()->Connect(SessionType::GameServer, ipFinal.c_str(), lobbyScene->portValue);
+            lobbyScene->isServerConnected = Singleton::Get<NetworkManager>()->Connect(SessionType::GameServer, ipFinal.c_str(), lobbyScene->portValue);
         }
         break;
     case WM_LBUTTONUP:
