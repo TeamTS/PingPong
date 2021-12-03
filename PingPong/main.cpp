@@ -21,10 +21,7 @@ LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
 std::shared_ptr<Scene> currentScene;
-Player gPlayer;
-Ball gBall;
 NetworkManager* gNetworkManager = nullptr;
-
 
 std::shared_ptr<GameScene> gameScene;
 std::shared_ptr<LobbyScene> lobbyScene;
@@ -35,8 +32,6 @@ void Initialize(void)
 {
     currentScene = lobbyScene;
     lobbyScene->button = button;
-    button->scale = { 100,50 };
-    button->position = { WINCX / 2, WINCY / 2 };
     currentScene->Initialize();
 }
 
@@ -44,12 +39,6 @@ void Update(double deltaTime)
 {
     currentScene->Update(deltaTime);
     gNetworkManager->Update();
-
-    gPlayer.UpdateRect();
-    gBall.UpdateRect();
-
-    gPlayer.Update(deltaTime);
-    gBall.Update(deltaTime);
 }
 
 void Render(void)
@@ -212,6 +201,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         if (button->IsClicked(gHWND))
         {
             // 동작 시작
+            //Singleton::Get<NetworkManager>()->Connect(SessionType::GameServer, );
         }
         break;
     case WM_LBUTTONUP:
