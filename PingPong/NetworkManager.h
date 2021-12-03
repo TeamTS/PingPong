@@ -19,6 +19,8 @@ private:
 
 	PacketProcessor mPacketProcessor;
 
+	bool mIsInit = false;
+
 public:
 	NetworkManager() = default;
 	~NetworkManager();

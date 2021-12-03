@@ -16,11 +16,15 @@ bool NetworkManager::Initialize()
 		return E_FAIL;
 	}
 
+	mIsInit = true;
     return true;
 }
 
 bool NetworkManager::Connect(SessionType sessionType, const char* ip, unsigned short port)
 {
+	if (!mIsInit)
+		return false;
+
 	auto iter = mSessions.find(sessionType);
 
 	if (iter != mSessions.end())
