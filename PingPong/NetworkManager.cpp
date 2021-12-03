@@ -17,6 +17,7 @@ bool NetworkManager::Initialize()
 	}
 
 	mIsInit = true;
+	mPacketProcessor.Initialize();
     return true;
 }
 
