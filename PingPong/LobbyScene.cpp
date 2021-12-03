@@ -23,6 +23,13 @@ void LobbyScene::Render(HWND hwnd, HDC hdc)
 
 	Rectangle(hdc, rt.left, rt.top, rt.right, rt.bottom);
 	DrawText(hdc, button->str, _tcslen(button->str), &rt, DT_CENTER | DT_VCENTER);
+
+	std::wstring text;
+	text = (isServerConnected ? L"서버연결됨" : L"서버연결안됨");
+		
+	swprintf_s(str, text.c_str());
+
+	TextOut(hdc, 0, 0, str, _tcslen(str));
 }
 
 void LobbyScene::Initialize(void)

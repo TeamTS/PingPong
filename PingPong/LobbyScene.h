@@ -12,6 +12,12 @@ public:
 	virtual void Update(float deltatime) override;
 	virtual void Render(HWND hwnd, HDC hdc) override;
 
+	TCHAR str[100] = L"";
+	bool isServerConnected = false;
+
+	TCHAR ip_str[100] = L"";
+	TCHAR port_str[100] = L"";
+
 	// Scene을(를) 통해 상속됨
 	virtual void Initialize(void) override;
 };
