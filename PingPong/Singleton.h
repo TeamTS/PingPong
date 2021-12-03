@@ -3,7 +3,7 @@
 class Singleton
 {
 public:
-	struct INode {}; 
+	class INode { }; 
 
 private:
 	template <typename T>
@@ -34,7 +34,7 @@ private:
 
 public:
 	template <typename T>
-	static T& Get()
+	static T* Get()
 	{
 		return Holder<T>::GetInstance();
 	}

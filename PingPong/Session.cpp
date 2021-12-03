@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Session.h"
+#include "NetworkManager.h"
 
 Session::Session()
 {
@@ -37,9 +38,26 @@ bool Session::Connect(const char* ip, unsigned short port)
 
 	unsigned int id = 0;
 	_beginthreadex(NULL, NULL, Session::RecvThreadFunc, this, 0, &id);
-	_beginthreadex(NULL, NULL, Session::SendThreadFunc, this, 0, &id);
 
 	return true;
+}
+
+void Session::SetGameObject(std::shared_ptr<GameObject> gameObject)
+{
+	if (gameObject.get() == nullptr)
+		return;
+
+	mGameObject = gameObject;
+}
+
+void Session::MoveProcessPoint(PacketBase* packet)
+{
+	mRecvBuffer.MoveProcessBuf(packet->size);
+}
+
+void Session::SendPacket(const PacketBase& packet)
+{
+	send(mSocket, reinterpret_cast<const char*>(&packet), packet.size, 0);
 }
 
 unsigned int __stdcall Session::RecvThreadFunc(void* arg)
@@ -47,16 +65,13 @@ unsigned int __stdcall Session::RecvThreadFunc(void* arg)
 	return static_cast<Session*>(arg)->RecvThread();
 }
 
-unsigned int __stdcall Session::SendThreadFunc(void* arg)
+unsigned int Session::RecvThread()
 {
-	return static_cast<Session*>(arg)->SendThread();
-}
+	auto& networkManager = *Singleton::Get<NetworkManager>();
 
-unsigned int Session::SendThread()
-{
 	while (IsConnect)
 	{
-		int recvByte = recv(mSocket, mRecvBuffer + mCurPacketLen, MaxRecvBufferLen - mCurPacketLen, 0);
+		int recvByte = recv(mSocket, mRecvBuffer.GetWritePoint(), mRecvBuffer.GetRemainSize(), 0);
 
 		if (recvByte <= 0)
 		{
@@ -64,26 +79,25 @@ unsigned int Session::SendThread()
 			continue;
 		}
 
-		mCurPacketLen += recvByte;
-		while (mCurPacketLen >= 2)
-		{
-			PacketBase* packet = reinterpret_cast<PacketBase*>(mRecvBuffer);
+		mRecvBuffer.AddPacketLen(recvByte);
 
-			if (packet->size > mCurPacketLen)
+		while (true)
+		{
+			int curPacketLen = mRecvBuffer.GetCurPacketLen();
+
+			if (curPacketLen < 2)
 				break;
 
+			mRecvBuffer.FixReadBuf();
 
+			PacketBase* packet = reinterpret_cast<PacketBase*>(mRecvBuffer.GetReadPoint());
+
+			if (packet->size > curPacketLen)
+				break;
+
+			mRecvBuffer.MoveReadBuf(packet->size);
+			networkManager.PushPacket(PacketData(this, packet));
 		}
-	}
-
-	return 0;
-}
-
-unsigned int Session::RecvThread()
-{
-	while (IsConnect)
-	{
-
 	}
 
 	return 0;

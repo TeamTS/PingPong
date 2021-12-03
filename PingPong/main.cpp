@@ -21,6 +21,10 @@ LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
 std::shared_ptr<Scene> currentScene;
+Player gPlayer;
+Ball gBall;
+NetworkManager* gNetworkManager = nullptr;
+
 
 std::shared_ptr<GameScene> gameScene;
 std::shared_ptr<LobbyScene> lobbyScene;
@@ -39,6 +43,13 @@ void Initialize(void)
 void Update(double deltaTime)
 {
     currentScene->Update(deltaTime);
+    gNetworkManager->Update();
+
+    gPlayer.UpdateRect();
+    gBall.UpdateRect();
+
+    gPlayer.Update(deltaTime);
+    gBall.Update(deltaTime);
 }
 
 void Render(void)
@@ -89,7 +100,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     QueryPerformanceFrequency(&cpuTick); // 진동수? 였는듯
 
     Singleton::Register<NetworkManager>(); // 싱글톤 등록
-
+    
+    gNetworkManager = Singleton::Get<NetworkManager>();
 
     // 시간 누적
     double accTime = 0.0;

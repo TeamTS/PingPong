@@ -2,6 +2,11 @@
 #include "NetworkManager.h"
 #include "Session.h"
 
+NetworkManager::~NetworkManager()
+{
+	WSACleanup();
+}
+
 bool NetworkManager::Initialize()
 {
 	WSADATA wsaData;
@@ -11,15 +16,15 @@ bool NetworkManager::Initialize()
 		return E_FAIL;
 	}
 
-		
-	//m_tServAddr.sin_family = AF_INET;
-	//m_tServAddr.sin_port = htons(_wPort);
-	//inet_pton(AF_INET, _pszIpAddress, &m_tServAddr.sin_addr);
-    return false;
+	mIsInit = true;
+    return true;
 }
 
 bool NetworkManager::Connect(SessionType sessionType, const char* ip, unsigned short port)
 {
+	if (!mIsInit)
+		return false;
+
 	auto iter = mSessions.find(sessionType);
 
 	if (iter != mSessions.end())
@@ -40,14 +45,33 @@ bool NetworkManager::Connect(SessionType sessionType, const char* ip, unsigned s
 
 void NetworkManager::Update()
 {
+	// 여기에 패킷이 쌓임.
 	while (mPacketQueue.empty() == false)
 	{
 		PacketData packetData;
+
+		// 하나씩 꺼냄
 		if (mPacketQueue.try_pop(packetData) == false)
 		{
-			//mPacketProcessor.Process(packetData.second);
+			// 패킷 처리 시도
+			mPacketProcessor.Process(packetData.second, packetData.first);
 		}
 	}
+}
+
+void NetworkManager::PushPacket(PacketData&& packetData)
+{
+	mPacketQueue.push(packetData);
+}
+
+SessionPtr NetworkManager::GetSession(SessionType sessionType)
+{
+	auto iter = mSessions.find(sessionType);
+
+	if (iter == mSessions.end())
+		return nullptr;
+
+	return iter->second;
 }
 
 void NetworkManager::Run()

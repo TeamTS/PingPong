@@ -37,6 +37,11 @@
     </ClCompile>
     <ClCompile Include="Button.cpp">
       <Filter>Client\Button</Filter>
+    <ClCompile Include="LogicGameStart.cpp">
+      <Filter>LogicProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="RingBuffer.cpp">
+      <Filter>Net</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +104,17 @@
     </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>Client\Button</Filter>
+    <ClInclude Include="LogicGameStart.h">
+      <Filter>LogicProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="InGamePacket.h">
+      <Filter>Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketCommand.h">
+      <Filter>Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="RingBuffer.h">
+      <Filter>Net</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +146,11 @@
     </Filter>
     <Filter Include="Client\Button">
       <UniqueIdentifier>{e8400171-da18-4384-9da5-b90d5b5afac7}</UniqueIdentifier>
+    <Filter Include="LogicProcess">
+      <UniqueIdentifier>{f584796e-3e5d-4a81-84b1-71667988b1aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Packet">
+      <UniqueIdentifier>{cee188eb-0795-498c-8f9c-bb120e810b81}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
