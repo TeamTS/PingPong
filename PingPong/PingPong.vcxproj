@@ -159,6 +159,7 @@
     <ClInclude Include="PacketProcessor.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="RingBuffer.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Ball.h" />
@@ -202,6 +203,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="RingBuffer.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>

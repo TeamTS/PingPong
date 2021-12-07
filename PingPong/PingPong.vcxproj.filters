@@ -50,6 +50,9 @@
     <ClCompile Include="LogicUserId.cpp">
       <Filter>CommandProcess</Filter>
     </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Client\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h">
@@ -126,6 +129,9 @@
     </ClInclude>
     <ClInclude Include="LogicUserId.h">
       <Filter>CommandProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Client\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

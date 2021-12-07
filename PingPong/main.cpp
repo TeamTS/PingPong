@@ -4,6 +4,7 @@
 #include "NetworkManager.h"
 #include "GameScene.h"
 #include "LobbyScene.h"
+#include "SceneManager.h"
 #include "Button.h"
 
 #define MAX_LOADSTRING 100
@@ -20,30 +21,25 @@ BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
-std::shared_ptr<Scene> currentScene;
 NetworkManager* gNetworkManager = nullptr;
-
-std::shared_ptr<GameScene> gameScene;
-std::shared_ptr<LobbyScene> lobbyScene;
+SceneManager* gSceneManager = nullptr;
+LobbyScene* lobbyScene;
 
 std::shared_ptr<Button> button;
 
 void Initialize(void)
 {
-    currentScene = lobbyScene;
-    lobbyScene->button = button;
-    currentScene->Initialize();
 }
 
 void Update(double deltaTime)
 {
     gNetworkManager->Update();
-    currentScene->Update(deltaTime);
+    gSceneManager->currentScene->Update(deltaTime);
 }
 
 void Render(void)
 {
-    currentScene->Render(gHWND, gHDC);
+    gSceneManager->currentScene->Render(gHWND, gHDC);
 }
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
@@ -73,8 +69,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     msg.message = WM_NULL;
     gHDC = GetDC(gHWND);
 
-    gameScene = std::make_shared<GameScene>();
-    lobbyScene = std::make_shared<LobbyScene>();
     button = std::make_shared<Button>();
 
     Initialize();
@@ -92,6 +86,23 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     
     gNetworkManager = Singleton::Get<NetworkManager>();
     gNetworkManager->Initialize();
+
+    Singleton::Register<SceneManager>();
+
+    gSceneManager = Singleton::Get<SceneManager>();
+
+
+    auto f = []()->std::shared_ptr<Scene>
+    {
+        std::shared_ptr<Scene> lobbyScene = std::make_shared<LobbyScene>();
+        dynamic_cast<LobbyScene*>(lobbyScene.get())->button = button;
+        return lobbyScene;
+    };
+    gSceneManager->AddScene(SceneType::Lobby, f());
+    
+    gSceneManager->AddScene(SceneType::Game, std::make_shared<GameScene>());
+    gSceneManager->SetScene(SceneType::Lobby);
+    lobbyScene = dynamic_cast<LobbyScene*>(gSceneManager->GetScene(SceneType::Lobby).get());
 
     // 시간 누적
     double accTime = 0.0;
@@ -166,8 +177,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    return TRUE;
 }
 
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+
     switch (message)
     {
     case WM_COMMAND:
